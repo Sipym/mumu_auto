@@ -76,16 +76,16 @@ class AutoPlayer(threading.Thread):
         self.last_matched_key = None
         self.stuck_counter = 0
         
-        # 计时器：用于 80s 超时检测和耗时统计
+        # 计时器：用于 200s 超时检测和耗时统计
         self.last_any_match_time = time.time()
-        self.IDLE_TIMEOUT = 80 
+        self.IDLE_TIMEOUT = 200
 
     def run(self):
         print(f"设备 [{self.device}] 挂机启动 (目标: {self.battle_count}次)")
         self.last_any_match_time = time.time()
 
         while self.running and self.current_count < self.battle_count:
-            # 80s 空转检查
+            # 200s 空转检查
             idle_duration = time.time() - self.last_any_match_time
             if idle_duration > self.IDLE_TIMEOUT:
                 print(f"\n[退出] 设备 [{self.device}] 超过 {self.IDLE_TIMEOUT}s 未匹配到任何目标，保护退出。")
@@ -139,11 +139,11 @@ class AutoPlayer(threading.Thread):
             # 1. 耗时统计 (当前成功匹配的时间 - 上次成功匹配的时间)
             duration = time.time() - self.last_any_match_time
             
-            # 2. 防卡死：同模板连续3次
+            # 2. 防卡死：同模板连续20次
             if self.last_matched_key == template_key:
                 self.stuck_counter += 1
-                if self.stuck_counter >= 9:
-                    print(f"[{self.device}] [异常] 连续9次识别到 [{template_key}] 无跳转，安全退出。")
+                if self.stuck_counter >= 20:
+                    print(f"[{self.device}] [异常] 连续20次识别到 [{template_key}] 无跳转，安全退出。")
                     self.running = False
                     return False
             else:

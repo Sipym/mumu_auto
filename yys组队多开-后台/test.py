@@ -21,6 +21,7 @@ SCENARIOS = {
     "5": {"name": "探索", "start_file": "start/start_tansuo.png", "end_file": "end/end_normal.png"},
     "6": {"name": "爬塔", "start_file": "start/start_pata.png", "end_file": "end/end_pata.png"},
     "7": {"name": "鬼兵演武", "start_file": "start/start_guibing.png", "end_file": "end/end_normal.png"},
+    "8": {"name": "契灵探查", "start_file": "start/start_tancha.png", "end_file": "end/end_tancha.png"},
 }
 # ===========================================
 
